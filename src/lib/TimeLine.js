@@ -48,6 +48,9 @@ class TimeLine extends Component {
       size: { width: 1, height: 1 },
       changingTask: null
     };
+
+    this.taskViewPortRef = React.createRef();
+    this.dataViewPortRef = React.createRef();
   }
 
   ////////////////////
@@ -108,7 +111,7 @@ class TimeLine extends Component {
     let rowInfo = this.calculateStartEndRows(this.state.numVisibleRows, this.props.data, scrollTop);
     if (rowInfo.start !== this.state.start) {
       this.setState(
-       {
+        {
           scrollTop: scrollTop,
           startRow: rowInfo.start,
           endRow: rowInfo.end
@@ -162,7 +165,7 @@ class TimeLine extends Component {
     //Got you
     this.setStartEnd();
     this.setState(
-       {
+      {
         currentday: currentIndx,
         nowposition: new_nowposition,
         headerData: headerData,
@@ -264,7 +267,7 @@ class TimeLine extends Component {
   onFinishCreateLink = (task, position) => {
     console.log(`End Link ${task}`);
     if (this.props.onCreateLink && task &&
-      this.state.taskToCreate &&this.state.taskToCreate.task.id!=task.id) {
+      this.state.taskToCreate && this.state.taskToCreate.task.id != task.id) {
       this.props.onCreateLink({
         start: this.state.taskToCreate,
         end: { task: task, position: position }
@@ -318,15 +321,15 @@ class TimeLine extends Component {
   render() {
     this.checkMode();
     this.checkNeeeData();
-    console.log('On render')
-    if(!this.state.size){
-      console.log(this.state)
+    console.log('On render');
+    if (!this.state.size) {
+      console.log(this.state);
     }
     return (
       <div className="timeLine">
         <div className="timeLine-side-main" style={this.state.sideStyle}>
           <TaskList
-            ref="taskViewPort"
+            ref={this.taskViewPortRef}
             itemheight={this.props.itemheight}
             startRow={this.state.startRow}
             endRow={this.state.endRow}
@@ -350,7 +353,7 @@ class TimeLine extends Component {
             scrollLeft={this.state.scrollLeft}
           />
           <DataViewPort
-            ref="dataViewPort"
+            ref={this.dataViewPortRef}
             scrollLeft={this.state.scrollLeft}
             scrollTop={this.state.scrollTop}
             itemheight={this.props.itemheight}

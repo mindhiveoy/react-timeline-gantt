@@ -7,11 +7,12 @@ export default class ContentEditable extends Component {
       editing: false,
       value: this.props.value
     };
+    this.textInputRef = React.createRef();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.refs.textInput && !this.isFocus) {
-      this.refs.textInput.focus();
+    if (this.textInputRef.current && !this.isFocus) {
+      this.textInputRef.current.focus();
       this.isFocus = true;
     }
   }
@@ -60,7 +61,7 @@ export default class ContentEditable extends Component {
   renderEditor = () => {
     return (
       <input
-        ref="textInput"
+        ref={this.textInputRef}
         onBlur={this.onBlur}
         style={{ width: '100%', outlineColor: 'black', outlineStyle: 'oinset' }}
         type="text"

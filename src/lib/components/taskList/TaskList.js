@@ -39,8 +39,8 @@ export class TaskRow extends Component {
             {this.props.label}
           </div>
         ) : (
-          <ContentEditable value={this.props.label} index={this.props.index} onChange={this.onChange} />
-        )}
+            <ContentEditable value={this.props.label} index={this.props.index} onChange={this.onChange} />
+          )}
       </div>
     );
   }
@@ -49,6 +49,7 @@ export class TaskRow extends Component {
 export default class TaskList extends Component {
   constructor(props) {
     super(props);
+    this.taskViewPortRef = React.createRef();
   }
 
   getContainerStyle(rows) {
@@ -80,7 +81,7 @@ export default class TaskList extends Component {
   }
 
   doScroll = () => {
-    this.props.onScroll(this.refs.taskViewPort.scrollTop);
+    this.taskViewPortRef.current && this.props.onScroll(this.taskViewPortRef.current.scrollTop);
   };
 
   render() {
@@ -91,7 +92,7 @@ export default class TaskList extends Component {
         <div className="timeLine-side-title" style={Config.values.taskList.title.style}>
           <div>{Config.values.taskList.title.label}</div>
         </div>
-        <div ref="taskViewPort" className="timeLine-side-task-viewPort" onScroll={this.doScroll}>
+        <div ref={this.taskViewPortRef} className="timeLine-side-task-viewPort" onScroll={this.doScroll}>
           <div className="timeLine-side-task-container" style={this.containerStyle}>
             {this.renderTaskRow(data)}
           </div>

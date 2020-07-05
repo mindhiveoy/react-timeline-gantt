@@ -25,6 +25,7 @@ export class DataViewPort extends Component {
   constructor(props) {
     super(props);
     this.childDragging = false;
+    this.dataViewPortRef = React.createRef();
   }
   getContainerHeight(rows) {
     let new_height = rows > 0 ? rows * this.props.itemheight : 10;
@@ -76,7 +77,7 @@ export class DataViewPort extends Component {
     }
   };
   doMouseMove = (e) => {
-    this.props.onMouseMove(e, this.refs.dataViewPort);
+    this.props.onMouseMove(e, this.dataViewPortRef.current);
   };
 
   doTouchStart = (e) => {
@@ -85,23 +86,25 @@ export class DataViewPort extends Component {
     }
   };
   doTouchMove = (e) => {
-    this.props.onTouchMove(e, this.refs.dataViewPort);
+    this.props.onTouchMove(e, this.dataViewPortRef.current);
   };
 
   componentDidMount() {
-    this.refs.dataViewPort.scrollLeft = 0;
+    if (this.dataViewPortRef.current) {
+      this.dataViewPortRef.current.scrollLeft = 0;
+    };
   }
 
   render() {
-    if (this.refs.dataViewPort) {
-      this.refs.dataViewPort.scrollLeft = this.props.scrollLeft;
-      this.refs.dataViewPort.scrollTop = this.props.scrollTop;
+    if (this.dataViewPortRef.current) {
+      this.dataViewPortRef.current.scrollLeft = this.props.scrollLeft;
+      this.dataViewPortRef.current.scrollTop = this.props.scrollTop;
     }
 
     let height = this.getContainerHeight(this.props.data.length);
     return (
       <div
-        ref="dataViewPort"
+        ref={this.dataViewPortRef}
         id="timeLinedataViewPort"
         className="timeLine-main-data-viewPort"
         onMouseDown={this.doMouseDown}

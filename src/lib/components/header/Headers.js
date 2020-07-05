@@ -9,6 +9,7 @@ import './Header.css';
 export class HeaderItem extends PureComponent {
   constructor(props) {
     super(props);
+    this.HeaderRef = React.createRef();
   }
   render() {
     return (
@@ -190,14 +191,15 @@ export default class Header extends PureComponent {
   };
 
   render() {
-    if (this.refs.Header) this.refs.Header.scrollLeft = this.props.scrollLeft;
+    if (this.HeaderRef)
+      this.HeaderRef.current.scrollLeft = this.props.scrollLeft;
     //Check boundaries to see if wee need to recalcualte header
     // if (this.needToRender()|| !this.cache){
     //     this.cache=this.renderHeader();
     //     this.setBoundaries();
     // }
     return (
-      <div id="timeline-header" ref="Header" className="timeLine-main-header-viewPort">
+      <div id="timeline-header" ref={this.HeaderRef} className="timeLine-main-header-viewPort">
         {this.renderHeader()}
       </div>
     );
