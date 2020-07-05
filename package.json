@@ -3,6 +3,7 @@
   "version": "0.4.3",
   "description": "",
   "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --config webpack.config.demo.js ",
     "prod": "webpack --mode production --open --config webpack.config.prod.js ",
@@ -51,8 +52,8 @@
     "jest-junit": "^5.0.0",
     "json-loader": "^0.5.7",
     "merge": ">=1.2.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "react-test-renderer": "^16.4.0",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.7",
