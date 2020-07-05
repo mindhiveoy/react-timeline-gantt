@@ -9,8 +9,8 @@ import './Header.css';
 export class HeaderItem extends PureComponent {
   constructor(props) {
     super(props);
-    this.HeaderRef = React.createRef();
   }
+
   render() {
     return (
       <div
@@ -35,6 +35,7 @@ export default class Header extends PureComponent {
   constructor(props) {
     super(props);
     this.setBoundaries();
+    this.HeaderRef = React.createRef();
   }
 
   getFormat(mode, position) {
@@ -99,6 +100,7 @@ export default class Header extends PureComponent {
       </div>
     );
   };
+
   getBox(date, mode, lastLeft) {
     let increment = this.getModeIncrement(date, mode) * this.props.dayWidth;
     if (!lastLeft) {
@@ -191,7 +193,7 @@ export default class Header extends PureComponent {
   };
 
   render() {
-    if (this.HeaderRef)
+    if (this.HeaderRef.current)
       this.HeaderRef.current.scrollLeft = this.props.scrollLeft;
     //Check boundaries to see if wee need to recalcualte header
     // if (this.needToRender()|| !this.cache){
